@@ -1,6 +1,6 @@
 package com.eventorganizer.entity;
 
 public enum Espaco {
-    aberto,
-    fechado
+    ABERTO,
+    FECHADO
 }

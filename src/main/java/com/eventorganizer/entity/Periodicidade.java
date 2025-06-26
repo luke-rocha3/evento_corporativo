@@ -1,8 +1,8 @@
 package com.eventorganizer.entity;
 
 public enum Periodicidade {
-    semanal,
-    mensal,
-    anual,
-    único
+    SEMANAL,
+    MENSAL,
+    ANUAL,
+    UNICO
 }

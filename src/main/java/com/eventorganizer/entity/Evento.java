@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "evento")
-public class Event {
+public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,9 +46,9 @@ public class Event {
     @JoinColumn(name = "dono_id", nullable = false)
     private Usuario dono;
 
-    public Event() {}
+    public Evento() {}
 
-    public Event(String nomeEvento, String descricao, String local, LocalDateTime dataHora, String faixaEtaria,
+    public Evento(String nomeEvento, String descricao, String local, LocalDateTime dataHora, String faixaEtaria,
                  Periodicidade periodicidade, Espaco espaco, int capacidade, Entrada entrada, Usuario dono) {
         this.nomeEvento = nomeEvento;
         this.descricao = descricao;

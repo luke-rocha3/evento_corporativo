@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Evento</title>
+</head>
+
+<body>
+    <h2>Cadastro de Evento</h2>
+
+    <form method="POST" action="/evento/cadastrar">
+        <label>Nome do Evento:</label><br>
+        <input type="text" name="nomeEvento" required><br><br>
+
+        <label>Descrição:</label><br>
+        <textarea name="descricao" rows="4" cols="50"></textarea><br><br>
+
+        <label>Local:</label><br>
+        <input type="text" name="local"><br><br>
+
+        <label>Data e Hora:</label><br>
+        <input type="datetime-local" name="dataHora" required><br><br>
+
+        <label>Faixa Etária:</label><br>
+        <input type="text" name="faixaEtaria"><br><br>
+
+        <label>Periodicidade:</label><br>
+        <select name="periodicidade" required>
+            <option value="UNICO">Único</option>
+            <option value="MENSAL">Mensal</option>
+            <option value="SEMANAL">Semanal</option>
+            <option value="ANUAL">Anual</option>
+        </select><br><br>
+
+        <label>Espaço:</label><br>
+        <select name="espaco" required>
+            <option value="ABERTO">Aberto</option>
+            <option value="FECHADO">Fechado</option>
+        </select><br><br>
+
+        <label>Capacidade:</label><br>
+        <input type="number" name="capacidade"><br><br>
+
+        <label>Tipo de Entrada:</label><br>
+        <select name="entrada" required>
+            <option value="GRATUITO">Gratuito</option>
+            <option value="PAGO">Pago</option>
+        </select><br><br>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+</body>
+
+</html>

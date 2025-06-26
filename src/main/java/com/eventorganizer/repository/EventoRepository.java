@@ -1,11 +1,11 @@
 package com.eventorganizer.repository;
 
-import com.eventorganizer.entity.Event;
+import com.eventorganizer.entity.Evento;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface EventoRepository extends JpaRepository<Event, Integer> {
+public interface EventoRepository extends JpaRepository<Evento, Integer> {
 
 }
 // Interface responsável por acessar e manipular os dados da entidade Event no
