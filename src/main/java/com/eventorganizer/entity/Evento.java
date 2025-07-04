@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class Evento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //UUID
     private int id;
 
     @Column(name = "nome_evento", nullable = false)

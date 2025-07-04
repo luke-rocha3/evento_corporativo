@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Eventos</title>
+</head>
+
+<body>
+    <h1>Todos os Eventos</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Local</th>
+                <th>Data e Hora</th>
+                <th>Capacidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="evento : ${eventos}">
+                <td th:text="${evento.id}">1</td>
+                <td th:text="${evento.nomeEvento}">Evento</td>
+                <td th:text="${evento.descricao}">Descrição</td>
+                <td th:text="${evento.local}">Local</td>
+                <td th:text="${#temporals.format(evento.dataHora, 'dd/MM/yyyy HH:mm')}">Data</td>
+                <td th:text="${evento.capacidade}">0</td>
+                <td>
+                    <a th:href="@{/evento/editar(id=${evento.id})}">Editar</a> |
+                    <a th:href="@{/evento/excluir(id=${evento.id})}"
+                        onclick="return confirm('Deseja excluir?')">Excluir</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/evento/cadastrar"><button>Adicionar Evento</button></a>
+    <a href="/"><button>Voltar para Início</button></a>
+</body>
+
+</html>
