@@ -15,6 +15,7 @@ public class LoginController {
 
     @Autowired
     private UsuarioService usuarioService;
+    private Usuario usuario;
 
     // Exibe a página de login
     @GetMapping("/login")
@@ -28,20 +29,27 @@ public String processarLogin(@RequestParam("username") String email,
                             @RequestParam("password") String senha,
                             Model model,
                             HttpSession session) {
+
+    System.out.println("Tentando login:");
+    System.out.println("Email: '" + email + "'");
+    System.out.println("Senha informada: '" + senha + "'");
+
     try {
         Usuario usuario = usuarioService.buscarUsuarioPorEmail(email);
 
-        // Ideal: aqui você deveria usar hash para comparar senha em produção
+        System.out.println("Senha no banco: '" + usuario.getSenha() + "'");
+
+        // Ideal: use hash para comparar senha em produção
         if (usuario.getSenha().equals(senha)) {
-            session.setAttribute("usuarioLogado", usuario);  // grava o usuário na sessão
-            return "redirect:/evento/telaInicial";          // redireciona após login
+            session.setAttribute("usuarioLogado", usuario);
+            return "redirect:/evento/telaInicial";
         } else {
             model.addAttribute("erro", "Senha incorreta!");
-            return "login";                                 // volta para login com erro
+            return "login";
         }
     } catch (RuntimeException e) {
         model.addAttribute("erro", "Email não encontrado!");
-        return "login";                                     // volta para login com erro
+        return "login";
     }
 }
 

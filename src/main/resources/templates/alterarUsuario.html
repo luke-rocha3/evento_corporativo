@@ -7,21 +7,21 @@
 <body>
     <h2>Alterar Perfil</h2>
 
-    <form method="POST" th:action="@{/atualizarUsuario}" th:object="${usuario}">
+    <form action="/atualizarUsuario" method="post" th:object="${usuario}">
         <label for="primeiroNome">Primeiro Nome:</label><br />
-        <input type="text" id="primeiroNome" name="primeiroNome" th:value="*{primeiroNome}" required /><br /><br />
+        <input type="text" th:field="*{primeiroNome}" required /><br /><br />
 
         <label for="sobrenome">Sobrenome:</label><br />
-        <input type="text" id="sobrenome" name="sobrenome" th:value="*{sobrenome}" required /><br /><br />
+        <input type="text" th:field="*{sobrenome}" required /><br /><br />
 
         <label for="idade">Idade:</label><br />
-        <input type="number" id="idade" name="idade" th:value="*{idade}" required /><br /><br />
+        <input type="number" th:field="*{idade}" required /><br /><br />
 
         <label for="email">E-mail:</label><br />
-        <input type="email" id="email" name="email" th:value="*{email}" required /><br /><br />
+        <input type="email" th:field="*{email}" required /><br /><br />
 
-        <label for="senha">Nova Senha:</label><br />
-        <input type="password" id="senha" name="senha" /><br /><br />
+        <label for="senha">Nova Senha (opcional):</label><br />
+        <input type="password" th:field="*{senha}" placeholder="Nova senha (opcional)" /><br /><br />
 
         <button type="submit">Salvar Alterações</button>
     </form>

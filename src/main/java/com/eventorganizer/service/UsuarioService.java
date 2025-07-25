@@ -1,30 +1,35 @@
 package com.eventorganizer.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.eventorganizer.entity.Usuario;
 import com.eventorganizer.repository.UsuarioRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Service
 public class UsuarioService {
 
-    @Autowired // Injeta automaticamente o UsuarioRepository para acessar métodos de banco
-               // (salvar, buscar, deletar)
+    @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Salva o usuário no banco e executa a operação imediatamente (flush)
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // ✅ Evita recriptografar senhas já codificadas
     public Usuario salvarUsuario(Usuario usuario) {
+        if (usuario.getSenha() != null && !usuario.getSenha().startsWith("$2a$")) {
+            usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
+        }
         return usuarioRepository.saveAndFlush(usuario);
     }
 
-    // Busca um usuário pelo email. Lança exceção se não encontrar.
     public Usuario buscarUsuarioPorEmail(String email) {
         return usuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Email não encontrado"));
     }
 
-    // deleta um usuario pelo e-mail!
     public void deletarUsuarioPorEmail(String email) {
         usuarioRepository.deleteByEmail(email);
     }
@@ -37,7 +42,15 @@ public class UsuarioService {
         usuarioExistente.setSobrenome(dadosAtualizados.getSobrenome());
         usuarioExistente.setIdade(dadosAtualizados.getIdade());
         usuarioExistente.setEmail(dadosAtualizados.getEmail());
-        usuarioExistente.setSenha(dadosAtualizados.getSenha());
+
+        // ✅ Se a senha for nova, criptografa — mas evita duplicar
+        if (dadosAtualizados.getSenha() != null && !dadosAtualizados.getSenha().isEmpty()) {
+            if (!dadosAtualizados.getSenha().startsWith("$2a$")) {
+                usuarioExistente.setSenha(passwordEncoder.encode(dadosAtualizados.getSenha()));
+            } else {
+                usuarioExistente.setSenha(dadosAtualizados.getSenha());
+            }
+        }
 
         return usuarioRepository.save(usuarioExistente);
     }

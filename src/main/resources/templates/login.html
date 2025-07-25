@@ -19,6 +19,13 @@
         <button type="submit">Entrar</button>
     </form>
 
+    <div style="color:red;">
+        <!-- Exibe a mensagem de erro se houver erro no login -->
+        <p th:if="${param.error}">Email ou senha inválidos.</p>
+        <!-- Exibe a mensagem de logout, se for o caso -->
+        <p th:if="${param.logout}" style="color:green;">Logout realizado com sucesso.</p>
+    </div>
+
     <p>Não tem uma conta? <a href="/cadastrarUsuario">Cadastre-se aqui</a></p>
 </body>
 

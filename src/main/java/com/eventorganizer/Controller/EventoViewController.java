@@ -7,9 +7,8 @@ import com.eventorganizer.entity.Periodicidade;
 import com.eventorganizer.entity.Usuario;
 import com.eventorganizer.service.EventoService;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,29 +51,15 @@ public class EventoViewController {
             @RequestParam String espaco,
             @RequestParam(required = false, defaultValue = "0") int capacidade,
             @RequestParam String entrada,
-            HttpSession session
+            @AuthenticationPrincipal Usuario usuarioLogado  // pega o usuário logado via Spring Security
     ) {
-        // Recupera o usuário logado
-        Usuario dono = (Usuario) session.getAttribute("usuarioLogado");
-
-        if (dono == null) {
-                    System.out.println("Usuário não está logado na sessão!");
+        if (usuarioLogado == null) {
+            System.out.println("Usuário não está logado no contexto de segurança!");
             return "redirect:/login";
         }
-            System.out.println("Usuário logado: " + dono.getPrimeiroNome() + " " + dono.getSobrenome());
 
-        
-         System.out.println("nomeEvento: " + nomeEvento);
-        System.out.println("dataHora: " + dataHora);
-        System.out.println("periodicidade: " + periodicidade);
-        System.out.println("espaco: " + espaco);
-        System.out.println("entrada: " + entrada);
-
-
-        // Converte dataHora para LocalDateTime
         LocalDateTime dataHoraConvertida = LocalDateTime.parse(dataHora, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 
-        // Cria o evento
         Evento evento = new Evento(
                 nomeEvento,
                 descricao,
@@ -85,10 +70,9 @@ public class EventoViewController {
                 Espaco.valueOf(espaco),
                 capacidade,
                 Entrada.valueOf(entrada),
-                dono
+                usuarioLogado
         );
 
-        // Salva o evento
         eventoService.salvarEvent(evento);
 
         return "redirect:/evento/telaInicial";

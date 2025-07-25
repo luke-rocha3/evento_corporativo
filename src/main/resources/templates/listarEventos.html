@@ -29,13 +29,16 @@
                 <td th:text="${evento.local}">Local</td>
                 <td th:text="${#temporals.format(evento.dataHora, 'dd/MM/yyyy HH:mm')}">Data</td>
                 <td th:text="${evento.capacidade}">0</td>
-                <td>
+
+                <!-- Ações visíveis apenas para o dono do evento -->
+                <td th:if="${usuarioLogado.id == evento.dono.id}">
                     <a th:href="@{/evento/editar(id=${evento.id})}">Editar</a> |
-                    <a th:href="@{/evento/excluir(id=${evento.id})}"
-                        onclick="return confirm('Deseja excluir?')">Excluir</a>
+                    <a th:href="@{/evento/excluir(id=${evento.id})}" onclick="return confirm('Deseja excluir?')">Excluir</a>
+                </td>
+                <td th:if="${usuarioLogado.id != evento.dono.id}">
+                    <!-- Nada visível -->
                 </td>
             </tr>
-
         </tbody>
     </table>
 

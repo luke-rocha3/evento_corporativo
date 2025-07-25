@@ -1,11 +1,13 @@
 package com.eventorganizer.Controller;
 
 import com.eventorganizer.entity.Evento;
+import com.eventorganizer.entity.Usuario;
 import com.eventorganizer.service.EventoService;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller; // <-- Importante!
 import org.springframework.web.bind.annotation.*;
@@ -36,11 +38,11 @@ public class EventoController {
     }
 
     @GetMapping("/listar")
-    public String listarEventos(Model model) {
-        List<Evento> eventos = eventoService.listarTodos();
-        model.addAttribute("eventos", eventos);
-        return "listarEventos"; 
-    }
+    public String listarEventos(Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+    model.addAttribute("eventos", eventoService.buscarTodos());
+    model.addAttribute("usuarioLogado", usuarioLogado);
+    return "lista_eventos";
+}
 
     // Deletar evento por ID
     @DeleteMapping
@@ -58,3 +60,4 @@ public class EventoController {
         return ResponseEntity.ok().build();
     }
 }
+                    

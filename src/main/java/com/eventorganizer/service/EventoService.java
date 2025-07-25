@@ -63,4 +63,9 @@ public class EventoService {
     public void deletarPorId(Integer id) {
         eventoRepository.deleteById(id);
     }
+
+    public Object buscarTodos() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'buscarTodos'");
+    }
 }
