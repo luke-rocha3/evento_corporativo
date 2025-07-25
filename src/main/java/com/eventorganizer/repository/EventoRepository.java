@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EventoRepository extends JpaRepository<Evento, Integer> {
-     //olhar filtrar por idade menor ou maior! jpa query methods!
 
 }

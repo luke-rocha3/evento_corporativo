@@ -1,55 +1,174 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastrar Evento</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+<body class="bg-light">
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-calendar-plus me-2"></i>
+                            Cadastro de Evento
+                        </h2>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="/evento/cadastrar">
+                            <div class="row">
+                                <!-- Nome do Evento -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="nomeEvento" class="form-label">
+                                        <i class="bi bi-calendar-event me-1"></i>
+                                        Nome do Evento
+                                    </label>
+                                    <input type="text" class="form-control" id="nomeEvento" name="nomeEvento" 
+                                           placeholder="Digite o nome do evento" required>
+                                </div>
+                                
+                                <!-- Local -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="local" class="form-label">
+                                        <i class="bi bi-geo-alt me-1"></i>
+                                        Local
+                                    </label>
+                                    <input type="text" class="form-control" id="local" name="local" 
+                                           placeholder="Digite o local do evento">
+                                </div>
+                            </div>
+                            
+                            <!-- Descrição -->
+                            <div class="mb-3">
+                                <label for="descricao" class="form-label">
+                                    <i class="bi bi-text-paragraph me-1"></i>
+                                    Descrição
+                                </label>
+                                <textarea class="form-control" id="descricao" name="descricao" rows="4" 
+                                          placeholder="Descreva o evento (opcional)"></textarea>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- Data e Hora -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="dataHora" class="form-label">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        Data e Hora
+                                    </label>
+                                    <input type="datetime-local" class="form-control" id="dataHora" name="dataHora" required>
+                                </div>
+                                
+                                <!-- Faixa Etária -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="faixaEtaria" class="form-label">
+                                        <i class="bi bi-people me-1"></i>
+                                        Faixa Etária
+                                    </label>
+                                    <input type="text" class="form-control" id="faixaEtaria" name="faixaEtaria" 
+                                           placeholder="Ex: 18+, Livre, 12-60">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- Periodicidade -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="periodicidade" class="form-label">
+                                        <i class="bi bi-arrow-repeat me-1"></i>
+                                        Periodicidade
+                                    </label>
+                                    <select class="form-select" id="periodicidade" name="periodicidade" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="UNICO">Único</option>
+                                        <option value="SEMANAL">Semanal</option>
+                                        <option value="MENSAL">Mensal</option>
+                                        <option value="ANUAL">Anual</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Espaço -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="espaco" class="form-label">
+                                        <i class="bi bi-building me-1"></i>
+                                        Espaço
+                                    </label>
+                                    <select class="form-select" id="espaco" name="espaco" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="ABERTO">Aberto</option>
+                                        <option value="FECHADO">Fechado</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Capacidade -->
+                                <div class="col-md-4 mb-3">
+                                    <label for="capacidade" class="form-label">
+                                        <i class="bi bi-person-check me-1"></i>
+                                        Capacidade
+                                    </label>
+                                    <input type="number" class="form-control" id="capacidade" name="capacidade" 
+                                           placeholder="Nº de pessoas" min="1">
+                                </div>
+                            </div>
+                            
+                            <!-- Tipo de Entrada -->
+                            <div class="mb-4">
+                                <label for="entrada" class="form-label">
+                                    <i class="bi bi-ticket-perforated me-1"></i>
+                                    Tipo de Entrada
+                                </label>
+                                <select class="form-select" id="entrada" name="entrada" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="GRATUITO">
+                                        <i class="bi bi-gift"></i> Gratuito
+                                    </option>
+                                    <option value="PAGO">
+                                        <i class="bi bi-currency-dollar"></i> Pago
+                                    </option>
+                                </select>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="/evento/telaInicial" class="btn btn-outline-secondary me-md-2">
+                                    <i class="bi bi-arrow-left me-2"></i>
+                                    Voltar
+                                </a>
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Cadastrar Evento
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<body>
-    <h2>Cadastro de Evento</h2>
-
-    <form method="POST" action="/evento/cadastrar">
-        <label>Nome do Evento:</label><br>
-        <input type="text" name="nomeEvento" required><br><br>
-
-        <label>Descrição:</label><br>
-        <textarea name="descricao" rows="4" cols="50"></textarea><br><br>
-
-        <label>Local:</label><br>
-        <input type="text" name="local"><br><br>
-
-        <label>Data e Hora:</label><br>
-        <input type="datetime-local" name="dataHora" required><br><br>
-
-        <label>Faixa Etária:</label><br>
-        <input type="text" name="faixaEtaria"><br><br>
-
-        <label>Periodicidade:</label><br>
-        <select name="periodicidade" required>
-            <option value="UNICO">Único</option>
-            <option value="MENSAL">Mensal</option>
-            <option value="SEMANAL">Semanal</option>
-            <option value="ANUAL">Anual</option>
-        </select><br><br>
-
-        <label>Espaço:</label><br>
-        <select name="espaco" required>
-            <option value="ABERTO">Aberto</option>
-            <option value="FECHADO">Fechado</option>
-        </select><br><br>
-
-        <label>Capacidade:</label><br>
-        <input type="number" name="capacidade"><br><br>
-
-        <label>Tipo de Entrada:</label><br>
-        <select name="entrada" required>
-            <option value="GRATUITO">Gratuito</option>
-            <option value="PAGO">Pago</option>
-        </select><br><br>
-
-        <button type="submit">Cadastrar</button>
-    </form>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para melhorar UX -->
+    <script>
+        // Define data mínima como hoje
+        document.getElementById('dataHora').min = new Date().toISOString().slice(0, 16);
+        
+        // Adiciona validação visual
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const button = form.querySelector('button[type="submit"]');
+                button.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Cadastrando...';
+                button.disabled = true;
+            });
+        });
+    </script>
 </body>
-
 </html>

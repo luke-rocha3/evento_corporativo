@@ -2,28 +2,131 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cadastro</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
-    <h2>Cadastro de Usuário</h2>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white text-center">
+                        <h2 class="card-title mb-0">
+                            <i class="bi bi-person-plus me-2"></i>
+                            Cadastro de Usuário
+                        </h2>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <form method="POST" action="/cadastrarUsuario">
+                            <div class="row">
+                                <!-- Primeiro Nome -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="primeiroNome" class="form-label">
+                                        <i class="bi bi-person me-1"></i>
+                                        Primeiro Nome
+                                    </label>
+                                    <input type="text" class="form-control" id="primeiroNome" name="primeiroNome" 
+                                           placeholder="Digite seu primeiro nome" required />
+                                </div>
+                                
+                                <!-- Sobrenome -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="sobrenome" class="form-label">
+                                        <i class="bi bi-person me-1"></i>
+                                        Sobrenome
+                                    </label>
+                                    <input type="text" class="form-control" id="sobrenome" name="sobrenome" 
+                                           placeholder="Digite seu sobrenome" required />
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <!-- Idade -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="idade" class="form-label">
+                                        <i class="bi bi-calendar3 me-1"></i>
+                                        Idade
+                                    </label>
+                                    <input type="number" class="form-control" id="idade" name="idade" 
+                                           placeholder="Digite sua idade" min="1" max="120" required />
+                                </div>
+                                
+                                <!-- E-mail -->
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="bi bi-envelope me-1"></i>
+                                        E-mail
+                                    </label>
+                                    <input type="email" class="form-control" id="email" name="email" 
+                                           placeholder="Digite seu e-mail" required />
+                                </div>
+                            </div>
+                            
+                            <!-- Senha -->
+                            <div class="mb-4">
+                                <label for="senha" class="form-label">
+                                    <i class="bi bi-lock me-1"></i>
+                                    Senha
+                                </label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="senha" name="senha" 
+                                           placeholder="Digite sua senha" required />
+                                    <button class="btn btn-outline-secondary" type="button" id="toggleSenha">
+                                        <i class="bi bi-eye" id="eyeIcon"></i>
+                                    </button>
+                                </div>
+                                <div class="form-text">
+                                </div>
+                            </div>
+                            
+                            <!-- Botão Cadastrar -->
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="bi bi-check-circle me-2"></i>
+                                    Cadastrar
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Link para Login -->
+                        <div class="text-center mt-3">
+                            <p class="text-muted">
+                                Já possui uma conta? 
+                                <a href="/login" class="text-decoration-none">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                                    Faça login
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form method="POST" action="/cadastrarUsuario">
-        <label for="primeiroNome">Primeiro Nome:</label><br />
-        <input type="text" id="primeiroNome" name="primeiroNome" required /><br /><br />
-
-        <label for="sobrenome">Sobrenome:</label><br />
-        <input type="text" id="sobrenome" name="sobrenome" required /><br /><br />
-
-        <label for="idade">Idade:</label><br />
-        <input type="number" id="idade" name="idade" required /><br /><br />
-
-        <label for="email">E-mail:</label><br />
-        <input type="email" id="email" name="email" required /><br /><br />
-
-        <label for="senha">Senha:</label><br />
-        <input type="password" id="senha" name="senha" required /><br /><br />
-
-        <button type="submit">Cadastrar</button>
-    </form>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script para mostrar/ocultar senha -->
+    <script>
+        document.getElementById('toggleSenha').addEventListener('click', function() {
+            const senhaInput = document.getElementById('senha');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (senhaInput.type === 'password') {
+                senhaInput.type = 'text';
+                eyeIcon.className = 'bi bi-eye-slash';
+            } else {
+                senhaInput.type = 'password';
+                eyeIcon.className = 'bi bi-eye';
+            }
+        });
+    </script>
 </body>
 </html>

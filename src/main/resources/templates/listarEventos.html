@@ -3,48 +3,103 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Eventos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Eventos - Event Organizer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 </head>
 
-<body>
-    <h1>Todos os Eventos</h1>
+<body class="bg-light">
 
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Local</th>
-                <th>Data e Hora</th>
-                <th>Capacidade</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="evento : ${eventos}">
-                <td th:text="${evento.id}">1</td>
-                <td th:text="${evento.nomeEvento}">Evento</td>
-                <td th:text="${evento.descricao}">Descrição</td>
-                <td th:text="${evento.local}">Local</td>
-                <td th:text="${#temporals.format(evento.dataHora, 'dd/MM/yyyy HH:mm')}">Data</td>
-                <td th:text="${evento.capacidade}">0</td>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
 
-                <!-- Ações visíveis apenas para o dono do evento -->
-                <td th:if="${usuarioLogado.id == evento.dono.id}">
-<a th:href="@{/evento/editar/{id}(id=${evento.id})}">Editar</a>
-                    <a th:href="@{/evento/excluir(id=${evento.id})}" onclick="return confirm('Deseja excluir?')">Excluir</a>
-                </td>
-                <td th:if="${usuarioLogado.id != evento.dono.id}">
-                    <!-- Nada visível -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                <!-- Cabeçalho -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="text-primary">
+                        <i class="bi bi-calendar-event me-2"></i>
+                        Todos os Eventos
+                    </h2>
+                    <a href="/evento/cadastrar" class="btn btn-primary">
+                        <i class="bi bi-plus me-1"></i>Adicionar Evento
+                    </a>
+                </div>
 
-    <br>
-    <a href="/evento/cadastrar"><button>Adicionar Evento</button></a>
-    <a href="/evento/telaInicial"><button>Voltar para Início</button></a>
+                <!-- Tabela de Eventos -->
+                <div class="card shadow">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Descrição</th>
+                                        <th>Local</th>
+                                        <th>Data e Hora</th>
+                                        <th>Capacidade</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="evento : ${eventos}">
+                                        <td class="text-muted" th:text="${evento.id}">1</td>
+                                        <td>
+                                            <strong th:text="${evento.nomeEvento}">Evento</strong>
+                                        </td>
+                                        <td th:text="${evento.descricao}">Descrição</td>
+                                        <td>
+                                            <i class="bi bi-geo-alt text-muted me-1"></i>
+                                            <span th:text="${evento.local}">Local</span>
+                                        </td>
+                                        <td>
+                                            <i class="bi bi-clock text-muted me-1"></i>
+                                            <span
+                                                th:text="${#temporals.format(evento.dataHora, 'dd/MM/yyyy HH:mm')}">Data</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info" th:text="${evento.capacidade + ' pessoas'}">0
+                                                pessoas</span>
+                                        </td>
+
+                                        <!-- Ações para o dono do evento -->
+                                        <td class="text-center" th:if="${usuarioLogado.id == evento.dono.id}">
+                                            <div class="btn-group btn-group-sm"> <a
+                                                    th:href="@{/evento/editar/{id}(id=${evento.id})}"
+                                                    class="btn btn-outline-primary" title="Editar"> <i
+                                                        class="bi bi-pencil"></i> </a> <a
+                                                    th:href="@{/evento/excluir(id=${evento.id})}"
+                                                    class="btn btn-outline-danger"
+                                                    onclick="return confirm('Deseja excluir este evento?')"
+                                                    title="Excluir"> <i class="bi bi-trash"></i> </a> </div>
+                                        </td>
+
+                                        <!-- Sem ações para outros usuários -->
+                                        <td class="text-center text-muted"
+                                            th:if="${usuarioLogado.id != evento.dono.id}">
+                                            <small>—</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de Navegação -->
+                <div class="mt-4 text-center">
+                    <a href="/evento/telaInicial" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>Voltar para Início
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

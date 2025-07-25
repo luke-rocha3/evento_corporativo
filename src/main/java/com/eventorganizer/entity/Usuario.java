@@ -1,6 +1,7 @@
 package com.eventorganizer.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,18 +17,27 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @NotBlank(message = "Primeiro nome é obrigatório")
+    @Size(max = 50, message = "Primeiro nome deve ter no máximo 50 caracteres")
     @Column(nullable = false, length = 50)
     private String primeiroNome;
 
+    @NotBlank(message = "Sobrenome é obrigatório")
+    @Size(max = 50, message = "Sobrenome deve ter no máximo 50 caracteres")
     @Column(nullable = false, length = 50)
     private String sobrenome;
 
+    @Min(value = 0, message = "Idade deve ser maior ou igual a zero")
     @Column(nullable = false)
     private int idade;
 
+    @NotBlank(message = "Email é obrigatório")
+    @Email(message = "Email deve ser válido")
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotBlank(message = "Senha é obrigatória")
+    @Size(min = 6, message = "Senha deve ter no mínimo 6 caracteres")
     @Column(nullable = false)
     private String senha;
 
@@ -42,6 +52,7 @@ public class Usuario implements UserDetails {
     }
 
     // Getters e Setters
+
     public Integer getId() {
         return id;
     }
@@ -91,9 +102,10 @@ public class Usuario implements UserDetails {
     }
 
     // Métodos obrigatórios do UserDetails
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(); // ou roles, se tiver
+        return List.of(); // ajustar se tiver roles
     }
 
     @Override
@@ -103,7 +115,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email; // login por e-mail
+        return this.email;
     }
 
     @Override

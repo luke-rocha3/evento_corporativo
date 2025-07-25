@@ -1,32 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Event Organizer</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 </head>
+<body class="bg-light">
+    
+    <div class="container">
+        <div class="row justify-content-center align-items-center min-vh-100">
+            <div class="col-md-4 col-lg-3">
+                
+                <!-- Logo/Título -->
+                <div class="text-center mb-4">
+                    <i class="bi bi-calendar-event text-primary" style="font-size: 3rem;"></i>
+                    <h3 class="text-primary mt-2">Event Organizer</h3>
+                </div>
 
-<body>
-    <h2>Login</h2>
+                <!-- Card de Login -->
+                <div class="card shadow">
+                    <div class="card-body p-4">
+                        <h4 class="text-center mb-4">Login</h4>
+                        
+                        <!-- Mensagens -->
+                        <div th:if="${param.error}" class="alert alert-danger alert-sm">
+                            <i class="bi bi-exclamation-triangle me-1"></i>
+                            Email ou senha inválidos.
+                        </div>
+                        
+                        <div th:if="${param.logout}" class="alert alert-success alert-sm">
+                            <i class="bi bi-check-circle me-1"></i>
+                            Logout realizado com sucesso.
+                        </div>
 
-    <form method="POST" action="/login">
-        <label for="email">E-mail:</label><br>
-        <input type="email" id="email" name="username" required><br><br>
-
-        <label for="senha">Senha:</label><br>
-        <input type="password" id="senha" name="password" required><br><br>
-
-        <button type="submit">Entrar</button>
-    </form>
-
-    <div style="color:red;">
-        <!-- Exibe a mensagem de erro se houver erro no login -->
-        <p th:if="${param.error}">Email ou senha inválidos.</p>
-        <!-- Exibe a mensagem de logout, se for o caso -->
-        <p th:if="${param.logout}" style="color:green;">Logout realizado com sucesso.</p>
+                        <!-- Formulário -->
+                        <form method="POST" action="/login">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail</label>
+                                <input type="email" class="form-control" id="email" name="username" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="senha" class="form-label">Senha</label>
+                                <input type="password" class="form-control" id="senha" name="password" required>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>
+                                    Entrar
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Link de Cadastro -->
+                        <div class="text-center mt-3">
+                            <small>
+                                Não tem uma conta? 
+                                <a href="/cadastrarUsuario" class="text-decoration-none">
+                                    Cadastre-se aqui
+                                </a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <p>Não tem uma conta? <a href="/cadastrarUsuario">Cadastre-se aqui</a></p>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

@@ -1,8 +1,8 @@
 package com.eventorganizer.entity;
 
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "evento")
@@ -12,32 +12,42 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //UUID
     private int id;
 
+    @NotBlank(message = "Nome do evento é obrigatório")
+    @Size(max = 100, message = "Nome do evento deve ter no máximo 100 caracteres")
     @Column(name = "nome_evento", nullable = false)
     private String nomeEvento;
 
+    @Size(max = 250, message = "Descrição deve ter no máximo 250 caracteres")
     @Column(name = "descricao", length = 250)
     private String descricao;
 
+    @Size(max = 250, message = "Local deve ter no máximo 250 caracteres")
     @Column(name = "local_evento", length = 250)
     private String local;
 
+    @NotNull(message = "Data e hora são obrigatórias")
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
 
+    @Size(max = 20, message = "Faixa etária deve ter no máximo 20 caracteres")
     @Column(name = "faixa_etaria", length = 20)
     private String faixaEtaria;
 
+    @NotNull(message = "Periodicidade é obrigatória")
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_periodicidade", nullable = false, length = 10)
     private Periodicidade periodicidade;
 
+    @NotNull(message = "Espaço é obrigatório")
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_espaco", nullable = false, length = 10)
     private Espaco espaco;
 
+    @Min(value = 0, message = "Capacidade deve ser zero ou maior")
     @Column(name = "capacidade")
     private int capacidade;
 
+    @NotNull(message = "Tipo de entrada é obrigatório")
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_entrada", nullable = false, length = 10)
     private Entrada entrada;
@@ -49,7 +59,7 @@ public class Evento {
     public Evento() {}
 
     public Evento(String nomeEvento, String descricao, String local, LocalDateTime dataHora, String faixaEtaria,
-                 Periodicidade periodicidade, Espaco espaco, int capacidade, Entrada entrada, Usuario dono) {
+                  Periodicidade periodicidade, Espaco espaco, int capacidade, Entrada entrada, Usuario dono) {
         this.nomeEvento = nomeEvento;
         this.descricao = descricao;
         this.local = local;
