@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Confirmar Exclusão</title>
+</head>
+<body>
+    <h1>Confirmar Exclusão</h1>
+
+    <p>Tem certeza que deseja excluir o evento: <strong th:text="${evento.nomeEvento}"></strong>?</p>
+
+    <form th:action="@{/evento/deletar}" method="post">
+        <input type="hidden" name="id" th:value="${evento.id}" />
+        <button type="submit">Sim, excluir</button>
+        <a th:href="@{/evento/telaInicial}">Cancelar</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Editar Evento</title>
+</head>
+
+<body>
+    <h1>Editar Evento</h1>
+
+    <form th:action="@{/evento/editar/{id}(id=${evento.id})}" method="post">
+        <!-- REMOVIDO: campo oculto para o ID, pois o controller pega o id da URL -->
+        <!-- <input type="hidden" name="id" th:value="${evento.id}" /> -->
+
+        <label for="nomeEvento">Nome:</label>
+        <input type="text" id="nomeEvento" name="nomeEvento" th:value="${evento.nomeEvento}" required />
+        <br />
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" rows="4" cols="50" th:text="${evento.descricao}"></textarea>
+        <br />
+
+        <label for="local">Local:</label>
+        <input type="text" id="local" name="local" th:value="${evento.local}" />
+        <br />
+
+        <label for="dataHora">Data e Hora:</label>
+        <!-- dataHoraFormatada deve ser passada do Controller no formato yyyy-MM-dd'T'HH:mm -->
+        <input type="datetime-local" id="dataHora" name="dataHora" th:value="${dataHoraFormatada}" required />
+        <br />
+
+        <label for="faixaEtaria">Faixa Etária:</label>
+        <input type="text" id="faixaEtaria" name="faixaEtaria" th:value="${evento.faixaEtaria}" />
+        <br />
+
+        <label for="periodicidade">Periodicidade:</label>
+        <select id="periodicidade" name="periodicidade" required>
+            <option th:each="p : ${T(com.eventorganizer.entity.Periodicidade).values()}"
+                    th:value="${p}" th:text="${p}"
+                    th:selected="${p} == ${evento.periodicidade}">
+            </option>
+        </select>
+        <br />
+
+        <label for="espaco">Espaço:</label>
+        <select id="espaco" name="espaco" required>
+            <option th:each="e : ${T(com.eventorganizer.entity.Espaco).values()}"
+                    th:value="${e}" th:text="${e}"
+                    th:selected="${e} == ${evento.espaco}">
+            </option>
+        </select>
+        <br />
+
+        <label for="capacidade">Capacidade:</label>
+        <input type="number" id="capacidade" name="capacidade" min="0" th:value="${evento.capacidade}" />
+        <br />
+
+        <label for="entrada">Entrada:</label>
+        <select id="entrada" name="entrada" required>
+            <option th:each="ent : ${T(com.eventorganizer.entity.Entrada).values()}"
+                    th:value="${ent}" th:text="${ent}"
+                    th:selected="${ent} == ${evento.entrada}">
+            </option>
+        </select>
+        <br />
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <a th:href="@{/evento/telaInicial}">Voltar</a>
+</body>
+
+</html>

@@ -32,7 +32,7 @@
 
                 <!-- Ações visíveis apenas para o dono do evento -->
                 <td th:if="${usuarioLogado.id == evento.dono.id}">
-                    <a th:href="@{/evento/editar(id=${evento.id})}">Editar</a> |
+<a th:href="@{/evento/editar/{id}(id=${evento.id})}">Editar</a>
                     <a th:href="@{/evento/excluir(id=${evento.id})}" onclick="return confirm('Deseja excluir?')">Excluir</a>
                 </td>
                 <td th:if="${usuarioLogado.id != evento.dono.id}">
@@ -44,7 +44,7 @@
 
     <br>
     <a href="/evento/cadastrar"><button>Adicionar Evento</button></a>
-    <a href="/"><button>Voltar para Início</button></a>
+    <a href="/evento/telaInicial"><button>Voltar para Início</button></a>
 </body>
 
 </html>

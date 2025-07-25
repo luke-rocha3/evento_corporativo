@@ -38,11 +38,12 @@ public class EventoController {
     }
 
     @GetMapping("/listar")
-    public String listarEventos(Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
-    model.addAttribute("eventos", eventoService.buscarTodos());
+public String listarEventos(Model model, @AuthenticationPrincipal Usuario usuarioLogado) {
+    model.addAttribute("eventos", eventoService.listarTodos()); // aqui chame listarTodos
     model.addAttribute("usuarioLogado", usuarioLogado);
-    return "lista_eventos";
+    return "listarEventos";
 }
+
 
     // Deletar evento por ID
     @DeleteMapping

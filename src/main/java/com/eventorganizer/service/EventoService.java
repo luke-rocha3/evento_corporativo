@@ -17,7 +17,6 @@ public class EventoService {
     @Autowired
     private EventoRepository eventoRepository;
 
-    // Criar um evento
     @Autowired
     private UsuarioRepository usuarioRepository;
 
@@ -30,7 +29,6 @@ public class EventoService {
         return eventoRepository.save(evento);
     }
 
-    // Atualizar evento existente
     public Evento atualizarEvento(Integer id, Evento novoEvento) {
         Evento eventoExistente = eventoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento com ID " + id + " não encontrado"));
@@ -49,23 +47,16 @@ public class EventoService {
         return eventoRepository.save(eventoExistente);
     }
 
-    // Buscar todos os eventos
     public List<Evento> listarTodos() {
         return eventoRepository.findAll();
     }
 
-    // Buscar evento por ID
     public Optional<Evento> buscarPorId(Integer id) {
         return eventoRepository.findById(id);
     }
 
-    // Deletar evento pelo ID
     public void deletarPorId(Integer id) {
         eventoRepository.deleteById(id);
     }
-
-    public Object buscarTodos() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarTodos'");
-    }
 }
+
